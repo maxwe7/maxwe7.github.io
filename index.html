@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jan Bräutigam auf YouTube</title>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       font-family:system-ui,sans-serif;background:#0f0f0f;color:#fff;text-align:center;padding:16px}
+  a{display:inline-block;margin-top:16px;padding:14px 28px;background:#ff0000;color:#fff;
+    text-decoration:none;border-radius:999px;font-weight:600}
+  p{opacity:.7;font-size:14px}
+</style>
+</head>
+<body>
+<div>
+  <h2>Weiter zu YouTube …</h2>
+  <a id="btn" href="https://www.youtube.com/@janbrautigam3053">In der YouTube-App öffnen</a>
+  <p>Falls nichts passiert, tippe auf den Button.</p>
+</div>
+<script>
+  var web = "https://www.youtube.com/@janbrautigam3053";
+  var ua = navigator.userAgent || "";
+  var target = web;
+
+  if (/android/i.test(ua)) {
+    // Android: Intent, öffnet direkt die YouTube-App, sonst Browser als Fallback
+    target = "intent://www.youtube.com/@janbrautigam3053#Intent;scheme=https;" +
+             "package=com.google.android.youtube;" +
+             "S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
+  } else if (/iphone|ipad|ipod/i.test(ua)) {
+    // iOS: App-Schema der YouTube-App
+    target = "youtube://www.youtube.com/@janbrautigam3053";
+    // Falls die App nicht installiert ist: nach kurzer Zeit zur Website
+    setTimeout(function(){ window.location.href = web; }, 1500);
+  }
+
+  document.getElementById("btn").href = target;
+  window.location.href = target;
+</script>
+</body>
+</html>
